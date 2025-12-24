@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
 
     @KafkaListener(topics = "notification-topic", groupId = "notification-group")
-    public void sendBookingConfirmationByEmil(BookingMailEvent event) {
+    public void sendBookingConfirmationByEmail(BookingMailEvent event) {
         log.info("Email processing started: Thread={}", Thread.currentThread());
 
         try {
