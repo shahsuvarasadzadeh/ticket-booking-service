@@ -11,14 +11,14 @@ public class NotificationService {
 
     @KafkaListener(topics = "notification-topic", groupId = "notification-group")
     public void sendBookingConfirmationByEmil(BookingMailEvent event) {
-        log.info("Email göndərilməsi başladıldı: Thread={}", Thread.currentThread());
+        log.info("Email processing started: Thread={}", Thread.currentThread());
 
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
+            log.error("Email processing interrupted for user: {}", event.getUserId());
             Thread.currentThread().interrupt();
         }
-
-        log.info("Email uğurla göndərildi! User={}", event.getUserId());
+        log.info("Email successfully sent! User={}", event.getUserId());
     }
 }
