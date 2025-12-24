@@ -65,13 +65,13 @@ public class TicketConcurrencyTest {
 
         latch.await();
 
-        System.out.println("Uğurlu Satış: " + successCount.get());
-        System.out.println("Uğursuz Cəhd: " + failCount.get());
+        System.out.println("Successful Bookings: " + successCount.get());
+        System.out.println("Failed Attempts: " + failCount.get());
 
-        assertEquals(50, successCount.get(), "50 bilet satılmalı idi!");
-        assertEquals(50, failCount.get(), "50 nəfər bilet ala bilməməli idi!");
+        assertEquals(50, successCount.get(), "Should have sold exactly 50 tickets!");
+        assertEquals(50, failCount.get(), "50 users should have failed to buy a ticket!");
 
         Event finalEvent = eventRepository.findById(eventId).orElseThrow();
-        assertEquals(0, finalEvent.getAvailableTickets(), "Bazada bilet sayı 0 olmalıdır, mənfi yox!");
+        assertEquals(0, finalEvent.getAvailableTickets(), "Available tickets in DB should be 0, not negative!");
     }
 }
