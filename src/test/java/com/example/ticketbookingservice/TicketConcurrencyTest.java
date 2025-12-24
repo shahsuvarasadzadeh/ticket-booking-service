@@ -34,8 +34,8 @@ public class TicketConcurrencyTest {
     public void testConcurrentBooking() throws InterruptedException {
         Event event = Event.builder()
                 .name("Test Concert")
-                .totalTickets(50)
-                .availableTickets(50)
+                .totalTickets(50L)
+                .availableTickets(50L)
                 .date(LocalDateTime.now().plusDays(10))
                 .build();
         event = eventRepository.save(event);

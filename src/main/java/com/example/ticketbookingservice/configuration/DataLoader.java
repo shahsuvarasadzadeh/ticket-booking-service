@@ -22,7 +22,7 @@ public class DataLoader {
                         .date(LocalDateTime.now().plusDays(30))
                         .build();
                 repository.save(event);
-                System.out.println("TEST MƏLUMATI YÜKLƏNDİ: Coldplay Concert (ID=1)");
+                System.out.println("TEST DATA LOADED: Coldplay Concert (ID=1)");
             }
         };
     }

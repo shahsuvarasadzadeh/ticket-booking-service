@@ -55,9 +55,9 @@ public class TicketService {
     @Transactional
     public Booking bookTicket(TicketDto dto) {
 
-        int updatedRows = eventRepository.decrementTicket(dto.getEventId());
+        Long updatedRows = eventRepository.decrementTicket(dto.getEventId());
 
-        if (updatedRows == 0) {
+        if (updatedRows.equals(0L)) {
             throw new RuntimeException("Tickets are sold out or event not found!");
         }
 
