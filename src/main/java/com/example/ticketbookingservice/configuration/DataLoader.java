@@ -17,8 +17,8 @@ public class DataLoader {
             if (repository.count() == 0) {
                 Event event = Event.builder()
                         .name("Coldplay Concert - Baku")
-                        .totalTickets(100)
-                        .availableTickets(100)
+                        .totalTickets(100L)
+                        .availableTickets(100L)
                         .date(LocalDateTime.now().plusDays(30))
                         .build();
                 repository.save(event);
