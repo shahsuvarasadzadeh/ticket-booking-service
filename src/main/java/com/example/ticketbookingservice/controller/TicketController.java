@@ -16,8 +16,8 @@ public class TicketController {
     private final TicketService ticketService;
 
     @GetMapping("/{eventId}/availability")
-    public ResponseEntity<Integer> checkAvailability(@PathVariable Long eventId) {
-        int availableTickets = ticketService.getAvailableTickets(eventId);
+    public ResponseEntity<Long> checkAvailability(@PathVariable Long eventId) {
+        Long availableTickets = ticketService.getAvailableTickets(eventId);
         return ResponseEntity.ok(availableTickets);
     }
 

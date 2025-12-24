@@ -21,10 +21,10 @@ public class Event {
     private String name;
 
     @Column(name = "total_tickets")
-    private int totalTickets;
+    private Long totalTickets;
 
     @Column(name = "available_tickets")
-    private int availableTickets;
+    private Long availableTickets;
 
     private LocalDateTime date;
 

@@ -1,5 +1,6 @@
 package com.example.ticketbookingservice.service;
 
+import com.example.ticketbookingservice.exception.EventNotFoundException;
 import com.example.ticketbookingservice.model.Booking;
 import com.example.ticketbookingservice.model.BookingMailEvent;
 import com.example.ticketbookingservice.model.Event;
@@ -30,18 +31,18 @@ public class TicketService {
 
     private static final String EVENT_TICKET_KEY = "event_tickets::";
 
-    public int getAvailableTickets(Long eventId) {
+    public Long getAvailableTickets(Long eventId) {
         String cacheKey = EVENT_TICKET_KEY + eventId;
 
         try {
             String cachedValue = redisTemplate.opsForValue().get(cacheKey);
-            if (cachedValue != null) return Integer.parseInt(cachedValue);
+            if (cachedValue != null) return Long.parseLong(cachedValue);
         } catch (Exception e) {
             log.error("Redis is down, fetching from DB directly", e);
         }
 
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + eventId));
 
         try {
             redisTemplate.opsForValue().set(cacheKey, String.valueOf(event.getAvailableTickets()), Duration.ofSeconds(5));
@@ -61,7 +62,7 @@ public class TicketService {
         }
 
         Event event = eventRepository.findById(dto.getEventId())
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + dto.getEventId()));
 
         Booking booking = Booking.builder()
                 .userId(dto.getUserId())
